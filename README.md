@@ -66,9 +66,17 @@ uv run fastapi dev main.py
 ## 📁 프로젝트 구조 예시
 
 ```text
-my-fastapi-app/
-├── .venv/            # 가상환경 폴더
-├── pyproject.toml    # 프로젝트 설정 및 의존성 관리
-├── uv.lock           # 의존성 잠금 파일
-└── main.py           # FastAPI 메인 코드
+my-fastapi-app/          # 프로젝트 루트 (현재 있는 곳)
+├── app/                 # 전체 소스코드가 들어가는 폴더
+│   ├── __init__.py      # 이 폴더가 파이썬 패키지임을 알림 (빈 파일)
+│   ├── main.py          # FastAPI 앱 객체를 생성하고 서버를 실행하는 진입점
+│   ├── api/             # API 경로(Route)들을 정의하는 곳
+│   │   ├── __init__.py
+│   │   └── v1/          # API 버전 관리 (선택 사항)
+│   │       └── endpoints.py
+│   ├── core/            # 공통 설정 (DB 연결 정보, 보안 설정 등)
+│   ├── models/          # 데이터베이스 테이블 정의 (DB 모델)
+│   └── schemas/         # 데이터 검증 및 직렬화 정의 (Pydantic 모델)
+├── .env                 # 환경 변수 설정 (비밀번호 등)
+└── pyproject.toml       # (uv 사용 시) 프로젝트 설정 및 의존성 관리 파일
 ```
