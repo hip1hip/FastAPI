@@ -1,46 +1,29 @@
-from fastapi import HTTPException
-from app.core.database import get_db
+from sqlalchemy.orm import Session
+from app.models.todo import Todo
+from app.schemas.todo import TodoCreate
 
 
 class TodoRepository:
+    def __init__(self, db: Session):
+        self.db = db
+
     def fetch_all_todos(self):
-        conn = get_db()
-        cursor = conn.cursor()
+        return self.db.query(Todo).all()
 
-        cursor.execute("SELECT * FROM todo")
-        rows = cursor.fetchall()
+    def insert_todo(self, content: str):
+        new_todo = Todo(content=content)
+        self.db.add(new_todo)
+        self.db.commit()
+        self.db.refresh(new_todo)
+        return new_todo
 
-        cursor.close()
-        conn.close()
-        return rows
+    def delete_todo(self, todo_id: int):
+        todo = self.db.query(Todo).filter(Todo.id == todo_id).first()
 
-    def insert_todo(self, content):
-        conn = get_db()
-        cursor = conn.cursor()
+        if not todo:
+            return 0
 
-        cursor.execute("INSERT INTO todo (content) VALUES (%s)", (content,))
-        conn.commit()
+        self.db.delete(todo)
+        self.db.commit()
 
-        todo_id = cursor.lastrowid
-
-        cursor.execute("SELECT * FROM todo WHERE id = %s", (todo_id,))
-
-        row = cursor.fetchone()
-
-        cursor.close()
-        conn.close()
-        return row
-
-    def delete_todo(self, todo_id):
-        conn = get_db()
-        cursor = conn.cursor()
-
-        cursor.execute("DELETE FROM todo WHERE id = %s", (todo_id,))
-        conn.commit()
-
-        affected = cursor.rowcount
-
-        cursor.close()
-        conn.close()
-
-        return affected
+        return 1

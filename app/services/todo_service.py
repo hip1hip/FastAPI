@@ -1,21 +1,28 @@
 from fastapi import HTTPException
+from sqlalchemy.orm import Session
 from app.repositories.todo_repository import TodoRepository
 
 
 class TodoService:
-    def __init__(self):
-        self.todo_repo = TodoRepository()
+    def __init__(self, db: Session):
+        self.todo_repo = TodoRepository(db)
 
     def get_all_todos(self):
-        rows = self.todo_repo.fetch_all_todos()
-        # 리시트 컴프리헨션 가공 로직을 여기서 처리!
-        return [{"id": r[0], "content": r[1], "created_at": str(r[2])} for r in rows]
+        todos = self.todo_repo.fetch_all_todos()
+        return [
+            {"id": t.id, "content": t.content, "created_at": str(t.created_at)}
+            for t in todos
+        ]
 
-    def create_new_todo(self, content):
-        row = self.todo_repo.insert_todo(content)
-        return {"id": row[0], "content": row[1], "created_at": str(row[2])}
+    def create_new_todo(self, content: str):
+        todo = self.todo_repo.insert_todo(content)
+        return {
+            "id": todo.id,
+            "content": todo.content,
+            "created_at": str(todo.created_at),
+        }
 
-    def delete_one_todo(self, todo_id):
+    def delete_one_todo(self, todo_id: int):
         affected_count = self.todo_repo.delete_todo(todo_id)
 
         if affected_count == 0:
