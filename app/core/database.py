@@ -13,9 +13,9 @@ Base = declarative_base()
 
 
 # DB 세션 의존성 주입을 위한 함수
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+# def get_db():
+#     db = SessionLocal()
+#     try:
+#         yield db
+#     finally:
+#         db.close()
