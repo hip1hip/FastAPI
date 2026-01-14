@@ -1,21 +1,25 @@
-import os
-from dotenv import load_dotenv
+from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic import computed_field
 
-# .env 파일 로드
-load_dotenv()
+# env_path = Path(__file__).parent.parent.pa
 
 
-class Settings:
-    # 기본값을 지정하여 None 에러 방지
-    MYSQL_USER: str = os.getenv("MYSQL_USER", "")
-    MYSQL_PASSWORD: str = os.getenv("MYSQL_PASSWORD", "")
-    MYSQL_HOST: str = os.getenv("MYSQL_HOST", "localhost")
-    MYSQL_PORT: str = os.getenv("MYSQL_PORT", "3307")
-    MYSQL_DB: str = os.getenv("MYSQL_DB", "")
+class Settings(BaseSettings):
+    # 1. 타입이 자동으로 지정됨 (MYSQL_PORT는 정수로 자동 변환)
+    MYSQL_USER: str = ""
+    MYSQL_PASSWORD: str = ""
+    MYSQL_HOST: str = ""
+    MYSQL_PORT: int = 3307
+    MYSQL_DB: str = ""
 
-    # 포멧팅을 사용해 URL 생성
+    # 2. @property 대신 @computed_field를 쓰면 나중에 출력이 가능함
+    @computed_field
     @property
     def SQLALCHEMY_DATABASE_URL(self) -> str:
-        return f"mysql+pymysql://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_HOST}:{MYSQL_PORT}/{MYSQL_DB}"
+        return f"mysql+pymysql://{self.MYSQL_USER}:{self.MYSQL_PASSWORD}@{self.MYSQL_HOST}:{self.MYSQL_PORT}/{self.MYSQL_DB}"
 
-    settings = Settings()
+    model_config = SettingsConfigDict(env_file=".env")
+
+
+settings = Settings()
+print(f"연결할 DB 주소: {settings.SQLALCHEMY_DATABASE_URL}")
