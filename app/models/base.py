@@ -5,7 +5,7 @@ from uuid import UUID, uuid4
 from sqlmodel import Field, SQLModel
 
 
-class TimestamoModel(SQLModel):
+class TimestampModel(SQLModel):
     # 1. UUID: 외부 노출용 고유키 (API 호출 시 id 대신 사용 권장)
     uuid: UUID = Field(default_factory=uuid4, index=True, unique=True, nullable=False)
 
