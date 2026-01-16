@@ -22,7 +22,7 @@ class BoardBase(BaseModel):
 
 # 게시글 생성 요청
 class BoardCreate(BoardBase):
-    pass
+    user_id: int
 
 
 # 게시글 수정 요청
