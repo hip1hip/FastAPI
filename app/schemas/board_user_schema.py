@@ -10,7 +10,7 @@ class BoardUserBase(BaseModel):
 
 
 # 2. 회원가입/ 생성 요청 DTO
-class BoardUserCaeate(BoardUserBase):
+class BoardUserCreate(BoardUserBase):
     pass
 
 
