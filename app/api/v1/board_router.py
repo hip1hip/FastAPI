@@ -8,7 +8,7 @@ from app.schemas.board_schema import BoardCreate, BoardRead
 from app.services.board_service import BoardService
 
 # 1. 라우터 설정(prefix는 URL 앞에 붙을 공통 주소입니다.)
-router = APIRouter(prefix="/boards", tags=["boards"])
+router = APIRouter()
 
 # TODO: 추후 리펙토링 , 중복되는 코드 정리: session: Session = Depends(get_session)
 
