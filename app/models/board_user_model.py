@@ -1,5 +1,6 @@
 from typing import TYPE_CHECKING, List, Optional
 from sqlmodel import Relationship, SQLModel, Field
+
 from .base import TimestampModel
 
 

@@ -7,8 +7,8 @@ engine = create_engine(settings.SQLALCHEMY_DATABASE_URL, echo=True)
 
 
 # 2. DB 테이블 생성  (Nest 에 synchronize: true 역할)
-def create_db_and_tables():
-    SQLModel.metadata.create_all(engine)
+# def create_db_and_tables():
+#     SQLModel.metadata.create_all(engine)
 
 
 # 3. 세션 주입

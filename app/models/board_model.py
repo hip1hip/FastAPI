@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING, Optional
 from sqlmodel import Field, Relationship, SQLModel
 
-from app.models.base import TimestampModel
+from .base import TimestampModel
 
 if TYPE_CHECKING:
     from .board_user_model import BoardUser

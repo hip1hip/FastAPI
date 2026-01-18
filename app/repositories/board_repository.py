@@ -24,4 +24,4 @@ class BoardRepository:
     def get_all(self):
         """모든 게시판 조회"""
         stmt = select(Board)
-        return self.session.exec(stmt).all
+        return self.session.exec(stmt).all()
