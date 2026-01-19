@@ -17,7 +17,7 @@ fi
 
 echo "3. 프로세스 정리 완료"
 
-nohup python3 -m uvicorn main:app --host 0.0.0.0 --port 8000 \
+nohup uv run fastapi run app/main.py --host 0.0.0.0 --port 8000 \
     > /dev/null 2>&1 < /dev/null &
 
 echo "4. 서버 백그라운드 실행 완료!"
