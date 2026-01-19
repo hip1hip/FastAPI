@@ -8,6 +8,7 @@ dependencies = [
     "alembic>=1.18.1",
     "cryptography>=46.0.3",
     "fastapi[standard]>=0.128.0",
+    "middleware>=1.2.3",
     "pymysql>=1.1.2",
     "python-dotenv>=1.2.1",
     "sqlalchemy>=2.0.45",
