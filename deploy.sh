@@ -1,4 +1,4 @@
-cd /home/ubuntu/workspace/FaseAPI
+cd /home/ubuntu/workspace/FastAPI
 
 echo "1. 프로젝트 폴더로 이동 완료"
 
