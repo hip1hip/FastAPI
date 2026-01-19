@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from app.api.v1.router import api_router
 from fastapi.middleware.cors import CORSMiddleware
+from app.models.board_model import Board
+from app.models.board_user_model import BoardUser
 
 from app.core.database import create_db_and_tables
 
