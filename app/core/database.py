@@ -7,8 +7,9 @@ engine = create_engine(settings.SQLALCHEMY_DATABASE_URL, echo=True)
 
 
 # 2. DB 테이블 생성  (Nest 에 synchronize: true 역할)
-# def create_db_and_tables():
-#     SQLModel.metadata.create_all(engine)
+# FIXME: EC2 에 올릴 때 DB 초기화 된 상태로 올라감 , 따라서 자동 생성 되게 해야함. 추후 RDS 쓰면 해당 건 주석 처리 필요.
+def create_db_and_tables():
+    SQLModel.metadata.create_all(engine)
 
 
 # 3. 세션 주입
