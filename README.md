@@ -35,6 +35,9 @@ uv sync
 
 # 4. 가상환경 활성화 (Windows 기준)
 .venv\Scripts\activate
+
+1.  **4번(activate)을 실행했다면:** `fastapi dev main.py`라고 쳐도 됩니다.
+2.  **4번을 안 했다면:** 반드시 `uv run fastapi dev main.py`라고 쳐야 합니다. (이때 `uv`가 알아서 `.venv`를 찾아 사용합니다.)
 ```
 
 ---
