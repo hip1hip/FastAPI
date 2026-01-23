@@ -27,7 +27,8 @@ class BoardBase(BaseModel):
 
 # 게시글 생성 요청
 class BoardCreate(BoardBase):
-    user_id: int
+    # user_id: int
+    pass
 
 
 # 게시글 수정 요청
@@ -39,8 +40,7 @@ class BoardUpdate(BaseModel):
 # 게시글 상세 조회 응담 (작성자 정보 포함)
 class BoardRead(BoardBase):
     id: int
-    uuid: UUID
-    user_id: int
+    # user_id: int
     created_at: datetime
     updated_at: datetime
 

@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.models.board_model import Board
 from app.models.board_user_model import BoardUser
 
-from app.core.database import create_db_and_tables
+# from app.core.database import create_db_and_tables
 
 app = FastAPI()
 
@@ -20,10 +20,10 @@ app.add_middleware(
 )
 
 
-@app.on_event("startup")
-def on_startup():
-    create_db_and_tables()
-    print("DB 테이블 생성 시도 완료!")
+# @app.on_event("startup")
+# def on_startup():
+#     create_db_and_tables()
+#     print("DB 테이블 생성 시도 완료!")
 
 
 def main():

@@ -28,6 +28,11 @@ class BoardUserRepository:
         """ID로 유저를 조회합니다."""
         return self.session.get(BoardUser, user_id)
 
+    def get_by_nick_name(self, nick_name: str) -> BoardUser | None:
+        """닉네임으로 유저를 조회합니다.(중복체크)"""
+        stmt = select(BoardUser).where(BoardUser.nick_name == nick_name)
+        return self.session.exec(stmt).first()
+
     def get_all(self):
         """모든 유저 목록을 가져옴"""
         stmt = select(BoardUser)
