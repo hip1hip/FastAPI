@@ -1,7 +1,6 @@
 from datetime import datetime
 from typing import Optional
-from uuid import UUID
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 from app.schemas.board_user_schema import BoardUserRead
 
@@ -39,8 +38,7 @@ class BoardUpdate(BaseModel):
 
 # 게시글 상세 조회 응담 (작성자 정보 포함)
 class BoardRead(BoardBase):
-    id: int
-    # user_id: int
+    id: int = Field(..., serialization_alias="board_id")
     created_at: datetime
     updated_at: datetime
 

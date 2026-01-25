@@ -1,7 +1,5 @@
-from datetime import datetime
 from typing import Optional
-from uuid import UUID
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 
 # 1. 공통 필드
@@ -21,7 +19,7 @@ class BoardUserUpdate(BaseModel):
 
 # 4. 조회 응답 DTO (API 결과값으로 나가는 형태)
 class BoardUserRead(BoardUserBase):
-    id: int
+    id: int = Field(..., serialization_alias="user_id")
 
     #  DB 객체 (SQLModel)를 Pydantic 모델로 변환 허용
     model_config = ConfigDict(from_attributes=True)
