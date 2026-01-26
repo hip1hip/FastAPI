@@ -38,3 +38,5 @@ class BoardUserRepository:
         stmt = select(BoardUser)
         return self.session.exec(stmt).all()
         # .exec = 내가 작성한 명령문을 실제 DB 전달해서 실행 요청함
+
+    

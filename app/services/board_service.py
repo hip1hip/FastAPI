@@ -35,3 +35,10 @@ class BoardService:
 
         # 검증 통고하하면 Repository에 위임
         return self.board_repo.update(board_id, board_in)
+
+    def delete_board(self, board_id: int):
+        board = self.board_repo.get_by_id(board_id)
+        if not board:
+            return None
+
+        return self.board_repo.delete(board_id)

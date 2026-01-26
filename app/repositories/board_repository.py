@@ -43,3 +43,12 @@ class BoardRepository:
         self.session.refresh(db_board)
 
         return db_board
+
+
+    def delete(self, board_id: int) -> bool:
+        """게시글 삭제 """
+        db_board = self.session.get(Board, board_id)
+
+        self.session.delete(db_board)
+        self.session.commit()
+        return True

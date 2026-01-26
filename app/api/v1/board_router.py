@@ -46,3 +46,11 @@ def update_board(
     service = BoardService(repo)
 
     return service.update_board(board_id, board_in)
+
+
+@router.delete("/{board_id}")
+def delete_board(board_id: int, session: Session = Depends(get_session)):
+    repo = BoardRepository(session)
+    service = BoardService(repo)
+
+    return service.delete_board(board_id)
