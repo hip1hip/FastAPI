@@ -39,4 +39,11 @@ class BoardUserRepository:
         return self.session.exec(stmt).all()
         # .exec = 내가 작성한 명령문을 실제 DB 전달해서 실행 요청함
 
-    
+    def delete_board_user(self, board_user_id: int) -> bool:
+        """유저 삭제"""
+        db_user = self.session.get(BoardUser, board_user_id)
+
+        self.session.delete(db_user)
+        self.session.commit()
+
+        return True

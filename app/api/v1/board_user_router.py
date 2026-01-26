@@ -27,4 +27,11 @@ def get_all_board_user_list(session: Session = Depends(get_session)):
 
 
 
+@router.delete("/{board_user_id}")
+def delete_board_user(board_user_id , session: Session = Depends(get_session)):
+    repo = BoardUserRepository(session)
+    service = BoardUserService(repo)
+
+    return service.delete_board_user(board_user_id)
+
 
