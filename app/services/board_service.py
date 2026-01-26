@@ -1,5 +1,5 @@
 from app.repositories.board_repository import BoardRepository
-from app.schemas.board_schema import BoardCreate
+from app.schemas.board_schema import BoardCreate, BoardUpdate
 
 
 class BoardService:
@@ -26,3 +26,12 @@ class BoardService:
 
     def get_all_boards(self):
         return self.board_repo.get_all()
+
+    def update_board(self, board_id: int, board_in: BoardUpdate):
+        # Service 에서만 검증 (존재 여부 확인)
+        board = self.board_repo.get_by_id(board_id)
+        if not board:
+            return None
+
+        # 검증 통고하하면 Repository에 위임
+        return self.board_repo.update(board_id, board_in)

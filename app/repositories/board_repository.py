@@ -1,7 +1,7 @@
 from sqlmodel import Session, select
 
 from app.models.board_model import Board
-from app.schemas.board_schema import BoardCreate
+from app.schemas.board_schema import BoardCreate, BoardUpdate
 
 
 class BoardRepository:
@@ -25,3 +25,21 @@ class BoardRepository:
         """모든 게시판 조회"""
         stmt = select(Board)
         return self.session.exec(stmt).all()
+
+    def update(self, board_id: int, board_in: BoardUpdate) -> Board | None:
+        """게시글 수정"""
+        db_board = self.session.get(Board, board_id)
+
+        # 존재 여부 체크 (Pylance 에러 방지 및 안정성)
+        if not db_board:
+            return None
+
+        # 전달 받은 board_id 데이터에서 값이 있는 것만 추출 (dict 뱐환)
+        update_data = board_in.model_dump(exclude_unset=True)
+        db_board.sqlmodel_update(update_data)
+
+        self.session.add(db_board)
+        self.session.commit()
+        self.session.refresh(db_board)
+
+        return db_board

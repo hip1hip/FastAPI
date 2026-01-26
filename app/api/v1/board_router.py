@@ -4,7 +4,7 @@ from sqlmodel import Session
 
 from app.core.database import get_session
 from app.repositories.board_repository import BoardRepository
-from app.schemas.board_schema import BoardCreate, BoardRead
+from app.schemas.board_schema import BoardCreate, BoardRead, BoardUpdate
 from app.services.board_service import BoardService
 
 # 1. 라우터 설정(prefix는 URL 앞에 붙을 공통 주소입니다.)
@@ -36,3 +36,13 @@ def get_board_detail(board_id: int, session: Session = Depends(get_session)):
     if not board:
         raise HTTPException(status_code=404, detail="게시글을 찾을 수 없습니다.")
     return board
+
+
+@router.put("/{board_id}", response_model=BoardRead)
+def update_board(
+    board_id: int, board_in: BoardUpdate, session: Session = Depends(get_session)
+):
+    repo = BoardRepository(session)
+    service = BoardService(repo)
+
+    return service.update_board(board_id, board_in)

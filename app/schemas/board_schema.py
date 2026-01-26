@@ -26,12 +26,13 @@ class BoardBase(BaseModel):
 
 # 게시글 생성 요청
 class BoardCreate(BoardBase):
-    # user_id: int
+    user_id: int
     pass
 
 
 # 게시글 수정 요청
 class BoardUpdate(BaseModel):
+    # id: Optional[int] = None
     title: Optional[str] = None
     content: Optional[str] = None
 
