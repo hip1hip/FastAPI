@@ -3,6 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session
 
 from app.core.database import get_session
+from app.core.exceptions import NotFoundError
 from app.repositories.board_repository import BoardRepository
 from app.schemas.board_schema import BoardCreate, BoardRead, BoardUpdate
 from app.services.board_service import BoardService
@@ -43,7 +44,7 @@ def get_board_detail(board_id: int, session: Session = Depends(get_session)):
 
     board = service.get_board_detail(board_id)
     if not board:
-        raise HTTPException(status_code=404, detail="게시글을 찾을 수 없습니다.")
+        raise NotFoundError("게시글을 찾을 수 없습니다.")
     return board
 
 
