@@ -13,22 +13,31 @@ router = APIRouter()
 # TODO: 추후 리펙토링 , 중복되는 코드 정리: session: Session = Depends(get_session)
 
 
-@router.post("/", response_model=BoardRead)
+@router.post("/", response_model=BoardRead, summary="게시글 생성")
 def create_board(board_in: BoardCreate, session: Session = Depends(get_session)):
+    """
+    게시글 생성합니다.
+    """
     repo = BoardRepository(session)
     service = BoardService(repo)
     return service.create_board(board_in)
 
 
-@router.get("/", response_model=List[BoardRead])
+@router.get("/", response_model=List[BoardRead], summary="게시글 조회")
 def get_boards(session: Session = Depends(get_session)):
+    """
+    게시글 전체 조회
+    """
     repo = BoardRepository(session)
     service = BoardService(repo)
     return service.get_all_boards()
 
 
-@router.get("/{board_id}", response_model=BoardRead)
+@router.get("/{board_id}", response_model=BoardRead, summary="게시글 상세 조회")
 def get_board_detail(board_id: int, session: Session = Depends(get_session)):
+    """
+    게시글 상세 조회
+    """
     repo = BoardRepository(session)
     service = BoardService(repo)
 
@@ -38,18 +47,22 @@ def get_board_detail(board_id: int, session: Session = Depends(get_session)):
     return board
 
 
-@router.put("/{board_id}", response_model=BoardRead)
+@router.put("/{board_id}", response_model=BoardRead, summary="게시글 수정")
 def update_board(
     board_id: int, board_in: BoardUpdate, session: Session = Depends(get_session)
 ):
+    """
+    게시글 수정
+    """
     repo = BoardRepository(session)
     service = BoardService(repo)
 
     return service.update_board(board_id, board_in)
 
 
-@router.delete("/{board_id}")
+@router.delete("/{board_id}", summary="게시판 삭제")
 def delete_board(board_id: int, session: Session = Depends(get_session)):
+    """게시글 삭제"""
     repo = BoardRepository(session)
     service = BoardService(repo)
 
