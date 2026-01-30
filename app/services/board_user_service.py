@@ -1,13 +1,4 @@
-"""
-의사코드
-
-중복체크 ,  입력받은 이름이 있는지 확인
-400 , 409 에러 던짐
-없으면 저장
-
-레포지토리는 DB에 Insert
-"""
-
+from app.core.exceptions import BadRequestError, NotFoundError
 from app.schemas.board_user_schema import BoardUserCreate
 from app.repositories.board_user_repository import BoardUserRepository
 
@@ -17,19 +8,18 @@ class BoardUserService:
         self.board_user_repo = board_user_repo
 
     def create_board_user(self, board_user_id: BoardUserCreate):
-        # 중복 체크 같은 유저, 닉네임 있는지 확인
+        """유저 생성 로직"""
         if self.board_user_repo.get_by_nick_name(board_user_id.nick_name):
-            return "이미 존재하는 닉네임입니다."
-        # 없으면 저장
-        else:
-            return self.board_user_repo.create(board_user_id)
+            raise BadRequestError("이미 존재하는 닉네임입니다.")
 
-    def get_all_board_user_list(self):
+        return self.board_user_repo.create(board_user_id)
+
+    def get_all_board_users(self):
         return self.board_user_repo.get_all()
 
     def delete_board_user(self, board_user_id: int):
         board_user = self.board_user_repo.get_by_id(board_user_id)
         if not board_user:
-            return None
+            raise NotFoundError("유저를 찾을 수 없습니다.")
 
         return self.board_user_repo.delete_board_user(board_user_id)

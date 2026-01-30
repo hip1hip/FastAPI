@@ -24,7 +24,7 @@ def create_board_user(
 def get_all_board_user_list(session: Session = Depends(get_session)):
     repo = BoardUserRepository(session)
     service = BoardUserService(repo)
-    return service.get_all_board_user_list()
+    return service.get_all_board_users()
 
 
 @router.delete("/{board_user_id}", summary="유저 삭제")
